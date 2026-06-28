@@ -441,3 +441,18 @@ def clear_portfolio(portfolio):
 
     else:
         print("Clear operation cancelled.")
+
+def show_menu():
+    print("\nMAIN MENU")
+    print("=" * 38)
+    print("1. View available stocks")
+    print("2. Search for a stock")
+    print("3. Set investment budget")
+    print("4. Add a stock")
+    print("5. Remove shares")
+    print("6. Update stock quantity")
+    print("7. View portfolio")
+    print("8. Save report")
+    print("9. Clear portfolio")
+    print("10. Exit")
+    print("=" * 38)
