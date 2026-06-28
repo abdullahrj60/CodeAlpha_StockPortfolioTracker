@@ -335,3 +335,59 @@ def save_txt(portfolio, budget):
             )
 
     print("Report saved as portfolio_report.txt.")
+
+def save_csv(portfolio, budget):
+    total = calculate_total(portfolio)
+
+    with open(
+        "portfolio_report.csv",
+        "w",
+        newline="",
+        encoding="utf-8"
+    ) as file:
+
+        writer = csv.writer(file)
+
+        writer.writerow(
+            [
+                "Stock Symbol",
+                "Company",
+                "Sector",
+                "Price Per Share",
+                "Quantity",
+                "Investment Value"
+            ]
+        )
+
+        for symbol, quantity in portfolio.items():
+            company, sector, price = stocks[symbol]
+
+            writer.writerow(
+                [
+                    symbol,
+                    company,
+                    sector,
+                    f"${price:.2f}",
+                    quantity,
+                    f"${price * quantity:.2f}"
+                ]
+            )
+
+        writer.writerow([])
+
+        writer.writerow(
+            [
+                "Total Investment",
+                f"${total:.2f}"
+            ]
+        )
+
+        if budget:
+            writer.writerow(
+                [
+                    "Investment Budget",
+                    f"${budget:.2f}"
+                ]
+            )
+
+    print("Report saved as portfolio_report.csv.")
