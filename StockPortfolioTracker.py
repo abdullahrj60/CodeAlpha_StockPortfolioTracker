@@ -213,3 +213,74 @@ def set_budget(current_budget):
     except ValueError:
         print("Please enter a valid number.")
         return current_budget
+
+def show_portfolio(portfolio, budget=0):
+    print("\nSTOCK PORTFOLIO SUMMARY")
+    print("=" * 82)
+
+    if not portfolio:
+        print("Your portfolio is currently empty.")
+        print("=" * 82)
+        return
+
+    total = calculate_total(portfolio)
+
+    print(
+        f"{'Symbol':<10}"
+        f"{'Company':<18}"
+        f"{'Price':<13}"
+        f"{'Qty':<8}"
+        f"{'Value':<15}"
+        f"{'Allocation':<12}"
+    )
+
+    print("-" * 82)
+
+    largest_symbol = ""
+    largest_value = 0
+    total_shares = 0
+
+    for symbol, quantity in portfolio.items():
+        company, _, price = stocks[symbol]
+
+        value = price * quantity
+        allocation = value / total * 100
+        total_shares += quantity
+
+        if value > largest_value:
+            largest_symbol = symbol
+            largest_value = value
+
+        print(
+            f"{symbol:<10}"
+            f"{company:<18}"
+            f"${price:<12.2f}"
+            f"{quantity:<8}"
+            f"${value:<14.2f}"
+            f"{allocation:.2f}%"
+        )
+
+    print("-" * 82)
+    print(f"Companies owned: {len(portfolio)}")
+    print(f"Total shares: {total_shares}")
+    print(f"Total investment value: ${total:.2f}")
+
+    print(
+        f"Largest holding: {largest_symbol} "
+        f"(${largest_value:.2f})"
+    )
+
+    if budget:
+        difference = budget - total
+
+        if difference >= 0:
+            print(
+                f"Remaining budget: ${difference:.2f}"
+            )
+        else:
+            print(
+                f"Budget exceeded by: "
+                f"${abs(difference):.2f}"
+            )
+
+    print("=" * 82)
