@@ -141,3 +141,75 @@ def remove_stock(portfolio):
         print(
             f"{quantity} share(s) of {symbol} removed."
         )
+def update_stock(portfolio):
+    if not portfolio:
+        print("\nYour portfolio is empty.")
+        return
+
+    show_portfolio(portfolio)
+
+    symbol = input(
+        "\nEnter stock symbol to update: "
+    ).upper().strip()
+
+    if symbol not in portfolio:
+        print("This stock is not in your portfolio.")
+        return
+
+    try:
+        quantity = int(
+            input("Enter new total quantity: ")
+        )
+
+        if quantity < 0:
+            print("Quantity cannot be negative.")
+
+        elif quantity == 0:
+            del portfolio[symbol]
+
+            print(
+                f"{symbol} removed from the portfolio."
+            )
+
+        else:
+            old_quantity = portfolio[symbol]
+            portfolio[symbol] = quantity
+
+            print(
+                f"{symbol} updated from {old_quantity} "
+                f"to {quantity} shares."
+            )
+
+    except ValueError:
+        print("Please enter a valid whole number.")
+
+
+def set_budget(current_budget):
+    if current_budget:
+        print(
+            f"\nCurrent budget: ${current_budget:.2f}"
+        )
+    else:
+        print("\nNo budget has been set.")
+
+    try:
+        budget = float(
+            input(
+                "Enter new budget or 0 to remove it: $"
+            )
+        )
+
+        if budget < 0:
+            print("Budget cannot be negative.")
+            return current_budget
+
+        if budget == 0:
+            print("Budget removed.")
+        else:
+            print(f"Budget set to ${budget:.2f}.")
+
+        return budget
+
+    except ValueError:
+        print("Please enter a valid number.")
+        return current_budget
