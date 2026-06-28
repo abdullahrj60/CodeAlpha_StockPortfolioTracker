@@ -456,3 +456,71 @@ def show_menu():
     print("9. Clear portfolio")
     print("10. Exit")
     print("=" * 38)
+
+def main():
+    portfolio = {}
+    budget = 0
+
+    print("=" * 50)
+    print("          STOCK PORTFOLIO TRACKER")
+    print("=" * 50)
+
+    print(
+        "Uses manually defined prices and gives "
+        "no financial advice."
+    )
+
+    while True:
+        show_menu()
+
+        choice = input(
+            "Enter your choice from 1 to 10: "
+        ).strip()
+
+        if choice == "1":
+            show_stocks()
+
+        elif choice == "2":
+            search_stock()
+
+        elif choice == "3":
+            budget = set_budget(budget)
+
+        elif choice == "4":
+            add_stock(portfolio)
+
+        elif choice == "5":
+            remove_stock(portfolio)
+
+        elif choice == "6":
+            update_stock(portfolio)
+
+        elif choice == "7":
+            show_portfolio(portfolio, budget)
+
+        elif choice == "8":
+            save_report(portfolio, budget)
+
+        elif choice == "9":
+            clear_portfolio(portfolio)
+
+        elif choice == "10":
+            if portfolio:
+                print("\nFINAL PORTFOLIO")
+                show_portfolio(portfolio, budget)
+
+            print(
+                "\nThank you for using the "
+                "Stock Portfolio Tracker!"
+            )
+
+            break
+
+        else:
+            print(
+                "Invalid choice. "
+                "Enter a number from 1 to 10."
+            )
+
+
+main()
