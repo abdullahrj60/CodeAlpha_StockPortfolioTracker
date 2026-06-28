@@ -73,3 +73,30 @@ def get_positive_quantity(message):
     except ValueError:
         print("Please enter a valid whole number.")
         return None
+        
+def add_stock(portfolio):
+    show_stocks()
+
+    symbol = input(
+        "\nEnter stock symbol to add: "
+    ).upper().strip()
+
+    if symbol not in stocks:
+        print("Invalid stock symbol.")
+        return
+
+    quantity = get_positive_quantity(
+        "Enter number of shares: "
+    )
+
+    if quantity is None:
+        return
+
+    portfolio[symbol] = portfolio.get(symbol, 0) + quantity
+
+    value = stocks[symbol][2] * quantity
+
+    print(
+        f"{quantity} share(s) of {symbol} added."
+    )
+    print(f"Investment value added: ${value:.2f}")
