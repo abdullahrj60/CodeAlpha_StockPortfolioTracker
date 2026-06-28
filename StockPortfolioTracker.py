@@ -284,3 +284,54 @@ def show_portfolio(portfolio, budget=0):
             )
 
     print("=" * 82)
+
+def save_txt(portfolio, budget):
+    total = calculate_total(portfolio)
+
+    generated = datetime.now().strftime(
+        "%d %B %Y, %I:%M %p"
+    )
+
+    with open(
+        "portfolio_report.txt",
+        "w",
+        encoding="utf-8"
+    ) as file:
+
+        file.write("STOCK PORTFOLIO REPORT\n")
+        file.write(f"Generated: {generated}\n")
+        file.write("=" * 68 + "\n")
+
+        file.write(
+            f"{'Symbol':<10}"
+            f"{'Company':<18}"
+            f"{'Price':<14}"
+            f"{'Quantity':<12}"
+            f"{'Value':<15}\n"
+        )
+
+        file.write("-" * 68 + "\n")
+
+        for symbol, quantity in portfolio.items():
+            company, _, price = stocks[symbol]
+            value = price * quantity
+
+            file.write(
+                f"{symbol:<10}"
+                f"{company:<18}"
+                f"${price:<13.2f}"
+                f"{quantity:<12}"
+                f"${value:<14.2f}\n"
+            )
+
+        file.write("-" * 68 + "\n")
+        file.write(
+            f"Total Investment: ${total:.2f}\n"
+        )
+
+        if budget:
+            file.write(
+                f"Investment Budget: ${budget:.2f}\n"
+            )
+
+    print("Report saved as portfolio_report.txt.")
