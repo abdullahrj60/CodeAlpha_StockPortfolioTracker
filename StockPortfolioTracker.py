@@ -391,3 +391,53 @@ def save_csv(portfolio, budget):
             )
 
     print("Report saved as portfolio_report.csv.")
+
+def save_report(portfolio, budget):
+    if not portfolio:
+        print("\nYour portfolio is empty.")
+        return
+
+    print("\nSAVE REPORT")
+    print("1. Save as TXT")
+    print("2. Save as CSV")
+    print("3. Save both")
+    print("4. Cancel")
+
+    choice = input("Enter your choice: ").strip()
+
+    try:
+        if choice == "1":
+            save_txt(portfolio, budget)
+
+        elif choice == "2":
+            save_csv(portfolio, budget)
+
+        elif choice == "3":
+            save_txt(portfolio, budget)
+            save_csv(portfolio, budget)
+
+        elif choice == "4":
+            print("Saving cancelled.")
+
+        else:
+            print("Invalid choice.")
+
+    except OSError:
+        print("The report could not be saved.")
+
+
+def clear_portfolio(portfolio):
+    if not portfolio:
+        print("\nYour portfolio is already empty.")
+        return
+
+    choice = input(
+        "\nClear the entire portfolio? (yes/no): "
+    ).lower().strip()
+
+    if choice in ["yes", "y"]:
+        portfolio.clear()
+        print("Portfolio cleared successfully.")
+
+    else:
+        print("Clear operation cancelled.")
