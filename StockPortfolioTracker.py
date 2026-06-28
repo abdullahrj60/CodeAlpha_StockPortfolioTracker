@@ -100,3 +100,44 @@ def add_stock(portfolio):
         f"{quantity} share(s) of {symbol} added."
     )
     print(f"Investment value added: ${value:.2f}")
+
+def remove_stock(portfolio):
+    if not portfolio:
+        print("\nYour portfolio is empty.")
+        return
+
+    show_portfolio(portfolio)
+
+    symbol = input(
+        "\nEnter stock symbol to remove: "
+    ).upper().strip()
+
+    if symbol not in portfolio:
+        print("This stock is not in your portfolio.")
+        return
+
+    quantity = get_positive_quantity(
+        "Enter quantity to remove: "
+    )
+
+    if quantity is None:
+        return
+
+    if quantity > portfolio[symbol]:
+        print(
+            "You cannot remove more shares than you own."
+        )
+
+    elif quantity == portfolio[symbol]:
+        del portfolio[symbol]
+
+        print(
+            f"All shares of {symbol} were removed."
+        )
+
+    else:
+        portfolio[symbol] -= quantity
+
+        print(
+            f"{quantity} share(s) of {symbol} removed."
+        )
