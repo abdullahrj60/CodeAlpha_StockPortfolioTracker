@@ -30,3 +30,46 @@ def show_stocks(items=None, title="AVAILABLE STOCKS"):
 
     print("=" * 68)
     print("Prices are manually defined sample values.")
+def search_stock():
+    keyword = input(
+        "\nEnter symbol, company, or sector: "
+    ).lower().strip()
+
+    if not keyword:
+        print("Search value cannot be empty.")
+        return
+
+    matches = [
+        (symbol, details)
+        for symbol, details in stocks.items()
+        if keyword in symbol.lower()
+        or keyword in details[0].lower()
+        or keyword in details[1].lower()
+    ]
+
+    if matches:
+        show_stocks(matches, "SEARCH RESULTS")
+    else:
+        print("No matching stock was found.")
+
+
+def calculate_total(portfolio):
+    return sum(
+        stocks[symbol][2] * quantity
+        for symbol, quantity in portfolio.items()
+    )
+
+
+def get_positive_quantity(message):
+    try:
+        quantity = int(input(message))
+
+        if quantity <= 0:
+            print("Quantity must be greater than zero.")
+            return None
+
+        return quantity
+
+    except ValueError:
+        print("Please enter a valid whole number.")
+        return None
